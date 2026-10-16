@@ -1,0 +1,28 @@
+---
+import type { Landing } from '../lib/landing.ts';
+interface Props { hero: Landing['hero']; cta: Landing['primaryCta'] }
+const { hero, cta } = Astro.props;
+const image = hero.image;
+---
+
+<section class:list={['hero', { 'hero-with-image': image }]} aria-labelledby="titulo-principal">
+  <div class="hero-copy">
+    <h1 id="titulo-principal">{hero.title}</h1>
+    <p class="hero-description">{hero.description}</p>
+    <a class="primary-cta" href={cta.href}>
+      <span>{cta.label}</span><span aria-hidden="true">↗</span>
+    </a>
+  </div>
+  {image && (
+    <img
+      class="hero-image"
+      src={`${image.url}?auto=format&w=1200`}
+      srcset={[480, 800, 1200, 1600].map(width => `${image.url}?auto=format&w=${width} ${width}w`).join(', ')}
+      sizes="(min-width: 960px) 45vw, 100vw"
+      width={image.width}
+      height={image.height}
+      alt={image.alt}
+      fetchpriority="high"
+    />
+  )}
+</section>

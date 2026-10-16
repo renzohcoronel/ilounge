@@ -1,0 +1,25 @@
+{
+  "name": "ilounge-studio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.19.0 <25", "npm": ">=11 <12" },
+  "packageManager": "npm@11.17.0",
+  "scripts": {
+    "dev": "sanity dev",
+    "check": "tsc --noEmit",
+    "test": "node --test --test-isolation=none tests/*.test.ts",
+    "build": "npm run check && sanity build"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sanity": "6.17.0",
+    "styled-components": "6.1.19"
+  },
+  "devDependencies": {
+    "@types/node": "24.13.5",
+    "@types/react": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

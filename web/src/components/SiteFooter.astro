@@ -1,0 +1,14 @@
+---
+import type { Landing } from '../lib/landing.ts';
+interface Props { footer: Landing['footer'] }
+const { footer } = Astro.props;
+---
+
+<footer class="site-footer container">
+  {footer.text && <p>{footer.text}</p>}
+  {footer.links.length > 0 && (
+    <nav aria-label="Enlaces del pie">
+      <ul>{footer.links.map(link => <li><a href={link.href}>{link.label}</a></li>)}</ul>
+    </nav>
+  )}
+</footer>

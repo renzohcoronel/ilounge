@@ -1,0 +1,13 @@
+---
+import type { Landing } from '../lib/landing.ts';
+interface Props { brandName: string; logo?: Landing['logo']; sample: boolean }
+const { brandName, logo, sample } = Astro.props;
+---
+
+<header class="brand-header container">
+  <div class="brand">
+    {logo && <img src={`${logo.url}?auto=format&w=240`} width={logo.width} height={logo.height} alt={logo.alt} class="brand-logo" />}
+    <span>{brandName}</span>
+  </div>
+  {sample && <span class="sample-label">Contenido de muestra</span>}
+</header>

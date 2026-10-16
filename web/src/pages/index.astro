@@ -1,0 +1,25 @@
+---
+import sampleDocument from '../../../content/landingPage.sample.ndjson?raw';
+import BrandHeader from '../components/BrandHeader.astro';
+import Hero from '../components/Hero.astro';
+import Details from '../components/Details.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import LandingLayout from '../layouts/LandingLayout.astro';
+import { parseLanding } from '../lib/landing.ts';
+import { readSiteUrl } from '../lib/config.ts';
+
+const sample = import.meta.env.MODE === 'sample';
+const canonical = readSiteUrl(import.meta.env.SITE_URL, sample);
+const landing = sample
+  ? parseLanding(JSON.parse(sampleDocument))
+  : await (await import('../lib/sanity.ts')).getPublishedLanding();
+---
+
+<LandingLayout seo={landing.seo} canonical={canonical} sample={sample}>
+  <BrandHeader brandName={landing.brandName} logo={landing.logo} sample={sample} />
+  <main id="contenido" class="container" tabindex="-1">
+    <Hero hero={landing.hero} cta={landing.primaryCta} />
+    {landing.details && <Details details={landing.details} />}
+  </main>
+  <SiteFooter footer={landing.footer} />
+</LandingLayout>
